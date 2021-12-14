@@ -1,0 +1,17 @@
+@import "./../../libs/variables.scss";
+
+.priceVAT {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    margin: 0 auto;
+    
+    background-color: lighten($main, 50%);
+    text-align: center;
+
+        p {
+            padding: 0 $sidePadding;;
+        }
+        
+        
+}

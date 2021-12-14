@@ -1,5 +1,6 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import AddVAT from "./components/AddVAT";
 
 function App() {
   const name = "Feisbrut";
@@ -9,9 +10,13 @@ function App() {
     { link: "/friends", label: "Friends" },
   ];
 
+ 
+  
+
   return (
     <div>
-      <Header name={name} links={nav} />
+      <Header name={name} links={nav} />     
+      <AddVAT price={100} vat={0.22} />
       <Footer />
     </div>
   );
