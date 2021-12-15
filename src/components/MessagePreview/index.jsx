@@ -1,5 +1,5 @@
 
-import style from "./MessagePreview.module.scss"
+// import style from "./MessagePreview.module.scss"
 
 const MessagePreview = (props) => {
 
