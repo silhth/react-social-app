@@ -1,0 +1,34 @@
+{
+    "title":"Spotify",
+    "log": [
+        {"username": "user",
+        "password": "psw"}
+    ],
+
+    "nav": [
+        {"link": "/", "label": "Home"},
+        {"link": "/", "label": "search"},
+        {"link": "/", "label": "Your Library"}
+    ], 
+    
+    
+    "block1": {"title": "good afternoon",
+                "items": [{"discImg": "",
+                        "title": "",
+                        "artist": ""}, ...]
+                    },            
+    "block2": {"title": "based on your recent listening",
+                "items": [{"discImg": "",
+                        "title": "",
+                        "artist": ""}, ...]
+                    },
+    "block3": {"title": "to discover",
+                "items": [{"discImg": "",
+                            "title": "",
+                            "artist": ""}, ...]
+                        },
+
+    "playBar": {"discImg": "",
+            "title": "",
+            "artist": ""}
+}
