@@ -1,35 +1,34 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import style from "./Home.module.scss"
 import FriendPreview from "../../components/FriendPreview";
 import MessagePreview from "../../components/MessagePreview";
 import PostPreview from "../../components/PostPreview";
+import { http } from "../../libs/http";
 
-const friends = [
-    {name: 'pippo', photo: 'https://randomuser.me/api/portraits/lego/6.jpg'},
-    {name: 'ciro', photo: 'https://randomuser.me/api/portraits/lego/7.jpg'},
-    {name: 'cinzia', photo: 'https://randomuser.me/api/portraits/lego/8.jpg'}
-];
+const friends = [];
 
-const messages = [
-    { text: 'sfgdh', date: new Date(), sender: 'pippo'},
-    { text: 'sdgh', date: new Date(), sender: 'pippo'},
-    { text: 'truuh', date: new Date(), sender: 'pippo'},
-    { text: 'strujhnb dh', date: new Date(), sender: 'pippo'},
-    { text: 'sftghnb', date: new Date(), sender: 'pippo'},
-]
+const messages = []
 
-const posts = [
-    {author: 'User', text: 'fdgkkghdfjh', date: new Date(), photo: "" },
-    {author: 'User', text: 'fdgkkghdfjh', date: new Date(), photo: "" },
-    {author: 'User', text: 'fdgkkghdfjh', date: new Date(), photo: "" }
+const posts = []
 
-]
 const Home = () => {
 
-    const [friendsPreview /*, setFriendsPreview*/] = useState(friends);
-    const [allPosts /*, setAllPosts*/] = useState(posts);
-    const [messagesPreview /*, setMessages*/] = useState(messages);
+    const [friendsPreview, setFriendsPreview] = useState(friends);
+    const [allPosts, setAllPosts] = useState(posts);
+    const [messagesPreview, setMessages] = useState(messages);
 
+
+
+    useEffect (()=> {
+
+        http('friends?_limit=4').then((data) =>setFriendsPreview(data));
+        http('messages?_limit=4').then((data) =>setMessages(data));
+        http('posts').then((data) =>setAllPosts(data));
+
+
+        //per caricare tutti json insieme usare promise all 
+        // Promise.all([http('friends?_limit=4'),  http('messages?_limit=4'), http('posts')]).then((data) => console.log(data))
+    }, []);
 
 
     return (
