@@ -18,7 +18,7 @@ const Home = () => {
     const [messagesPreview, setMessages] = useState(messages);
 
 
-
+// fa si che la funzione abbia un life cycle  
     useEffect (()=> {
 
         http('friends?_limit=4').then((data) =>setFriendsPreview(data));
