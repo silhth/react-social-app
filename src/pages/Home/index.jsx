@@ -1,9 +1,12 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
+import { http } from "../../libs/http";
+import { Link } from "react-router-dom";
 import style from "./Home.module.scss"
 import FriendPreview from "../../components/FriendPreview";
 import MessagePreview from "../../components/MessagePreview";
 import PostPreview from "../../components/PostPreview";
-import { http } from "../../libs/http";
+
+
 
 const friends = [];
 
@@ -18,12 +21,12 @@ const Home = () => {
     const [messagesPreview, setMessages] = useState(messages);
 
 
-// fa si che la funzione abbia un life cycle  
-    useEffect (()=> {
+    // fa si che la funzione abbia un life cycle  
+    useEffect(() => {
 
-        http('friends?_limit=4').then((data) =>setFriendsPreview(data));
-        http('messages?_limit=4').then((data) =>setMessages(data));
-        http('posts').then((data) =>setAllPosts(data));
+        http('friends?_limit=4').then((data) => setFriendsPreview(data));
+        http('messages?_limit=4').then((data) => setMessages(data));
+        http('posts').then((data) => setAllPosts(data.reverse()));
 
 
         //per caricare tutti json insieme usare promise all 
@@ -36,18 +39,24 @@ const Home = () => {
             <h3>Home page</h3>
             <div className={style.grid}>
                 <aside>
-                    {friendsPreview.map((friend, index) => 
-                    (<FriendPreview key={index} data={friend}/>))}
+                    {friendsPreview.map((friend, index) =>
+                        (<FriendPreview key={index} data={friend} />))}
                 </aside>
                 <main>
-                {allPosts.map((post, index) => 
-                (<PostPreview key={index} data={post}/>)
-                )}
+
+                    <Link to="/new-post">
+                        <button className={style.createPostBtn}>
+                            + Create a new post!
+                        </button>
+                    </Link>
+                    {allPosts.map((post, index) =>
+                        (<PostPreview key={index} data={post} />)
+                    )}
                 </main>
                 <aside>
-                {messagesPreview.map((message, index) =>
-                (<MessagePreview key={index} data={message}/>))}
-                    
+                    {messagesPreview.map((message, index) =>
+                        (<MessagePreview key={index} data={message} />))}
+
                 </aside>
             </div>
         </section>

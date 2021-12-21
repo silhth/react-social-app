@@ -6,7 +6,7 @@ import { useReducer } from "react";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import { CreatePost } from "./components/CreatePost";
+import { CreateNewPost } from "./pages/CreateNewPost";
 
 const INIT_STATE = {
   name: "Feisbrut",
@@ -14,7 +14,7 @@ const INIT_STATE = {
     { link: "/", label: "Home" },
     { link: "/messages", label: "Messages" },
     { link: "/friends", label: "Friends" },
-    { link: "/new-post", label: "Creae new post" },
+    // { link: "/new-post", label: "Creae new post" },
 
   ],
   friendsPreview: []
@@ -43,7 +43,7 @@ function App() {
           <Route path="/" element= {<Home/>}/>
           <Route path="/messages" element= {<h3>Messaggi</h3>}/>
           <Route path="/friends" element= {<h3>Friends</h3>}/>
-          <Route path="/new-post" element= {<CreatePost/>}/>
+          <Route path="/new-post" element= {<CreateNewPost/>}/>
 
         </Routes>    
       {/* <AddVAT price={100} vat={0.22} /> */}
