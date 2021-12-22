@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import { CreateNewPost } from "./pages/CreateNewPost";
+import Friends from "./pages/Friends";
 
 const INIT_STATE = {
   name: "Feisbrut",
@@ -42,7 +43,7 @@ function App() {
         <Routes>
           <Route path="/" element= {<Home/>}/>
           <Route path="/messages" element= {<h3>Messaggi</h3>}/>
-          <Route path="/friends" element= {<h3>Friends</h3>}/>
+          <Route path="/friends" element= {<Friends/>}/>
           <Route path="/new-post" element= {<CreateNewPost/>}/>
 
         </Routes>    

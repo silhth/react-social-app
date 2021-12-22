@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FriendPreview } from "../../components/FriendPreview";
+import FriendPreview from "../../components/FriendPreview";
 import { http } from "../../libs/http";
 import styles from "./Friends.module.scss";
 
@@ -7,7 +7,7 @@ const Friends = () => {
   const [friendsList, setFriendsList] = useState([]);
 
   useEffect(() => {
-    http("/friends").then((friendsList) => setFriendsList(friendsList));
+    http("friends").then((friendsList) => setFriendsList(friendsList));
   }, []);
 
   return (
