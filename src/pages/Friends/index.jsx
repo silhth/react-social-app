@@ -1,20 +1,36 @@
 import { useState, useEffect } from "react";
-import FriendPreview from "../../components/FriendPreview";
+import CreateFriend from "../../components/CreateFriend";
+import { FriendPreview } from "../../components/FriendPreview";
+// import Pagination from "./../../components/Pagination";
 import { http } from "../../libs/http";
 import styles from "./Friends.module.scss";
 
+import Pagination from "../../components/Pagination";
+
 const Friends = () => {
-  const [friendsList, setFriendsList] = useState([]);
+  const [actualFriendsList, setActualFriendsList] = useState([]);
+  const [actualButtonNum, setActualButtonNum] = useState(1);
 
   useEffect(() => {
-    http("friends").then((friendsList) => setFriendsList(friendsList));
-  }, []);
+    http(`/friends?_page=${actualButtonNum}`).then((friendsList) =>
+      setActualFriendsList(friendsList)
+    );
+  }, [actualButtonNum]);
 
   return (
     <div className={styles.Friends}>
-      {friendsList.map((friend) => (
-        <FriendPreview data={friend} key={friend.id} />
-      ))}
+      <CreateFriend />
+
+      <div className={styles.__friendsList}>
+        {actualFriendsList.map((friend) => (
+          <FriendPreview data={friend} key={friend.id} />
+          
+        ))}
+      </div>
+
+      <div className={styles.__pagination}>
+        <Pagination setActualButtonNum={setActualButtonNum} />
+      </div>
     </div>
   );
 };

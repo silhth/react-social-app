@@ -1,66 +1,71 @@
 import { useState, useEffect } from "react";
-import { http } from "../../libs/http";
+import { FriendPreview } from "../../components/FriendPreview";
+import { MessagePreview } from "../../components/MessagePreview";
+import { Post } from "../../components/Post";
+import { http } from "./../../libs/http";
 import { Link } from "react-router-dom";
-import style from "./Home.module.scss"
-import FriendPreview from "../../components/FriendPreview";
-import MessagePreview from "../../components/MessagePreview";
-import PostPreview from "../../components/PostPreview";
-
-
+import styles from "./Home.module.scss";
 
 const friends = [];
 
-const messages = []
+const messages = [];
 
-const posts = []
+const posts = [];
 
 const Home = () => {
+  const [friendsPreview, setFriendsPreview] = useState(friends);
+  const [allPosts, setAllPosts] = useState(posts);
+  const [messagesPreview, setMessagesPreview] = useState(messages);
 
-    const [friendsPreview, setFriendsPreview] = useState(friends);
-    const [allPosts, setAllPosts] = useState(posts);
-    const [messagesPreview, setMessages] = useState(messages);
+  // GETTER -> const friendPreview = [];
+  // SETTER -> friendPreview = [...]
 
+  // Esegui del codice quando il componente è inizializzato (montato in pagina)
+  // componentDidMount() --> simile a "DOMContentLoaded" ma solo per il componente
+  useEffect(() => {
+    // fetch("https://edgemony-backend.herokuapp.com/friends?_limit=4")
+    //   .then((response) => response.json())
+    //   .then((data) => setFriendsPreview(data));
 
-    // fa si che la funzione abbia un life cycle  
-    useEffect(() => {
+    http("/friends?_limit=4").then((data) => setFriendsPreview(data));
+    http("/messages?_limit=4").then((data) => setMessagesPreview(data));
+    http("/posts").then((data) => setAllPosts(data.reverse()));
 
-        http('friends?_limit=4').then((data) => setFriendsPreview(data));
-        http('messages?_limit=4').then((data) => setMessages(data));
-        http('posts').then((data) => setAllPosts(data.reverse()));
+    // Promise.all([
+    //   http("/friends?_limit=4"),
+    //   http("/messages?_limit=4"),
+    //   http("/posts")
+    // ]).then((data) => console.log(data[0]))
+  }, []);
 
+  return (
+    <section className={styles.home}>
+      <h3>Bevenuto utente</h3>
+      <div className={styles.grid}>
+        <aside>
+          {friendsPreview.map((friend, index) => (
+            <FriendPreview key={index} data={friend} />
+          ))}
+        </aside>
+        <main>
+          <Link to="/new-post">
+            <button className={styles.createPostBtn}>
+              + Create a new post!
+            </button>
+          </Link>
+          {allPosts.map((post, index) => (
+            <Post key={index} data={post} />
+          ))}
+        </main>
+        <aside>
+          {messagesPreview.map((message, index) => (
+            <MessagePreview key={index} data={message} />
+          ))}
+        </aside>
+      </div>
+    </section>
+  );
+};
 
-        //per caricare tutti json insieme usare promise all 
-        // Promise.all([http('friends?_limit=4'),  http('messages?_limit=4'), http('posts')]).then((data) => console.log(data))
-    }, []);
+export default Home;
 
-
-    return (
-        <section className={style.home}>
-            <h3>Home page</h3>
-            <div className={style.grid}>
-                <aside>
-                    {friendsPreview.map((friend, index) =>
-                        (<FriendPreview key={index} data={friend} />))}
-                </aside>
-                <main>
-
-                    <Link to="/new-post">
-                        <button className={style.createPostBtn}>
-                            + Create a new post!
-                        </button>
-                    </Link>
-                    {allPosts.map((post, index) =>
-                        (<PostPreview key={index} data={post} />)
-                    )}
-                </main>
-                <aside>
-                    {messagesPreview.map((message, index) =>
-                        (<MessagePreview key={index} data={message} />))}
-
-                </aside>
-            </div>
-        </section>
-    )
-}
-
-export default Home; 

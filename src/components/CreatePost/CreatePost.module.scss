@@ -1,31 +1,26 @@
-.createPostModale {
-  position: relative;
+.createPost {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  .createPost {
+  form {
     display: flex;
-    justify-content: center;
-    align-items: center;
-  
+    flex-direction: column;
+    width: 400px;
 
-    form {
-      display: flex;
-      flex-direction: column;
-      width: 400px;
-
-      >* {
-        margin-bottom: 20px;
-      }
+    > * {
+      margin-bottom: 20px;
     }
+  }
 
-    .__author {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
+  .__author {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
 
-      button {
-        padding: 5px;
-        width: 100%;
-      }
+    button {
+      padding: 5px;
+      width: 100%;
     }
   }
 }

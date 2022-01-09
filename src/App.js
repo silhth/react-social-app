@@ -1,53 +1,62 @@
-import {
-  Routes,
-  Route,
-} from "react-router-dom";
 import { useReducer } from "react";
+import { Routes, Route } from "react-router-dom";
+
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import Home from "./pages/Home";
-import { CreateNewPost } from "./pages/CreateNewPost";
+import NewPost from "./pages/NewPost";
+import Messages from "./pages/Messages";
 import Friends from "./pages/Friends";
+import Login from "./pages/Login";
+
+import Home from "./pages/Home";
 
 const INIT_STATE = {
-  name: "Feisbrut",
+  name: "FeisBell",
   nav: [
     { link: "/", label: "Home" },
     { link: "/messages", label: "Messages" },
     { link: "/friends", label: "Friends" },
-    // { link: "/new-post", label: "Creae new post" },
-
+    { link: "/login", label: "Login" },
   ],
-  friendsPreview: []
-  
-}
+  friendsPreview: [],
+  fontFamily: "",
+};
 
 const reducer = (state, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case "change-name":
-      return {...state, name:"faisbel"};
-    default: 
+      return { ...state, name: "FeisBrutt" };
+    case "change-font":
+      return { ...state, fontFamily: "Arial" };
+    default:
       return state;
-  };
-}
+  }
+};
 
 function App() {
   const [state, dispatch] = useReducer(reducer, INIT_STATE);
- 
-
 
   return (
     <div>
-      <Header name={state.name} links={state.nav} /> 
-      <button onClick={() => dispatch({type: 'change-name'})}>Cambia Nome</button>
-        <Routes>
-          <Route path="/" element= {<Home/>}/>
-          <Route path="/messages" element= {<h3>Messaggi</h3>}/>
-          <Route path="/friends" element= {<Friends/>}/>
-          <Route path="/new-post" element= {<CreateNewPost/>}/>
+      <Header name={state.name} font={state.fontFamily} links={state.nav} />
 
-        </Routes>    
-      {/* <AddVAT price={100} vat={0.22} /> */}
+      <button
+        onClick={() => {
+          dispatch({ type: "change-name" });
+          dispatch({ type: "change-font" });
+        }}
+      >
+        Cambia nome
+      </button>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/new-post" element={<NewPost />} />
+        <Route path="/messages" element={<Messages />} />
+        <Route path="/friends" element={<Friends />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+
       <Footer />
     </div>
   );
