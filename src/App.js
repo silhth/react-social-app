@@ -8,8 +8,6 @@ import Loading from "./components/Loading";
 // import Messages from "./pages/Messages";
 // import Friends from "./pages/Friends";
 // import Login from "./pages/Login";
-
-
 // import Home from "./pages/Home";
 
 const Home = lazy(() => import("./pages/Home"));
@@ -33,7 +31,7 @@ const INIT_STATE = {
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "change-name":
+    case "change-name":  
       return { ...state, name: "FeisBrutt" };
     case "change-font":
       return { ...state, fontFamily: "Arial" };
@@ -59,11 +57,11 @@ function App() {
       </button>
 
       <Routes>
-      <Route path="/" element={
-          <Suspense fallback={<Loading/>}>
-            <Home />
-          </Suspense>
-        } />
+        <Route path="/" element={
+            <Suspense fallback={<Loading/>}>
+              <Home />
+            </Suspense>
+          } />
         <Route path="/new-post" element={
           <Suspense fallback={<Loading/>}>
             <NewPost />
