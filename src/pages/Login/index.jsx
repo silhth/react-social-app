@@ -1,35 +1,56 @@
-import { useState, useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import styles from "./Login.module.scss";
+
+const init_state = {
+  userName: '',
+  password: ''
+}
+
+const reducer = (userData, action) => {
+  switch(action.type) {
+    case 'userName': 
+      return { ...userData, userName: action.payload};
+    
+    case 'password':
+      return { ...userData, password: action.payload};
+    
+    default:
+      return userData
+  }
+
+}
 
 const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUserData({
-      userName,
-      password,
-    });
+    dispatch({type:'userName', payload: userData.userName })
+    dispatch({type:'password', payload: userData.password })
   };
 
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
-  const [userData, setUserData] = useState({});
+  const [userData, dispatch]= useReducer (reducer, init_state)
+  // const [userName, setUserName] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [userData, setUserData] = useState({});
 
   useEffect(() => {
     console.log(userData);
   }, [userData]);
 
+
   return (
     <form className={styles.Login}>
       <input
-        value={userName}
-        onChange={(e) => setUserName(e.target.value)}
+        value={userData.userName}
+        onChange={(e) => dispatch({type:'userName', payload: e.target.value})}
+        // onChange={(e) => setUserName(e.target.value)}
         type="text"
         placeholder="Username"
         required
       />
       <input
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={userData.password}
+        onChange={(e) => dispatch({type:'password', payload: e.target.value})}
+        // onChange={(e) => setPassword(e.target.value)}
         type="password"
         placeholder="Password"
         required
